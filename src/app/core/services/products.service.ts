@@ -9,10 +9,26 @@ import {Product} from "../interfaces";
 export class ProductsService extends BaseService{
 
   getProducts(params: {
-    categoryId?: number,
+    categoryId?: number | null,
     limit?: number,
     search?: string,
   }): Observable<Product[]> {
     return this.get<Product[]>('product', params)
+  }
+
+  getOne(id: string): Observable<Product> {
+    return this.get<Product>(`product/${id}`);
+  }
+
+  create(product: Product): Observable<Product> {
+    return this.post<Product>('product', product);
+  }
+
+  update(id: string, product: Product): Observable<Product> {
+    return this.put<Product>(`product/${id}`, product);
+  }
+
+  deleteItem(id: string): Observable<Product> {
+    return this.delete<Product>(`product/${id}`);
   }
 }
